@@ -14,16 +14,13 @@ public class User {
     private long id;
     @Column(name = "email", nullable = false, unique = true)
     @Email(message = "Please provide a valid e-mail")
-    @NotEmpty(message = "Please provide an e-mail")
     private String email;
     @Column(name = "password")
     @org.springframework.data.annotation.Transient
     private String password;
     @Column(name = "name")
-    @NotEmpty(message = "Please provide your name")
     private String name;
     @Column(name = "username")
-    @NotEmpty(message = "Please provide your username")
     private String username;
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(joinColumns = @JoinColumn(name = "user_id"),inverseJoinColumns = @JoinColumn(name = "role_id"))

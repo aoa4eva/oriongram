@@ -5,23 +5,21 @@
 </head>
 <body>
     <div class="container">
+        <th:block th:replace="base :: nav"></th:block>
+        <br/><br/><br/>
         <div class="well">
-
             Logged in User: <th:block sec:authentication="name">name error</th:block>
-
             <th:block sec:authorize="isAuthenticated()">
                 This content is only shown to authenticated users.<br />
                 Logged user: <th:block sec:authentication="name">username error</th:block>
                 Roles: <th:block sec:authentication="principal.authorities">role error</th:block>
             </th:block>
-
             <p sec:authorize="hasAuthority('ADMIN')" >
                 This content is only shown to administrators.
             </p>
             <p sec:authorize="hasAuthority('USER')" >
                 This content is only shown to users.
             </p>
-
         </div>
     </div>
 </body>
