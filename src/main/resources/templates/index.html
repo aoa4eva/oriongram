@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="www.thymeleaf.org " xmlns:sec="www.thymeleaf.org/extras/spring-security">
+<head>
+    <th:block th:replace="base :: head"></th:block>
+</head>
+<body>
+    <div class="container">
+        <div class="well">
+
+            Logged in User: <th:block sec:authentication="name">name error</th:block>
+
+            <th:block sec:authorize="isAuthenticated()">
+                This content is only shown to authenticated users.<br />
+                Logged user: <th:block sec:authentication="name">username error</th:block>
+                Roles: <th:block sec:authentication="principal.authorities">role error</th:block>
+            </th:block>
+
+            <p sec:authorize="hasAuthority('ADMIN')" >
+                This content is only shown to administrators.
+            </p>
+            <p sec:authorize="hasAuthority('USER')" >
+                This content is only shown to users.
+            </p>
+
+        </div>
+    </div>
+</body>
+</html>
