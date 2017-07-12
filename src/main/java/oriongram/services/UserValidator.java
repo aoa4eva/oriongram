@@ -20,8 +20,6 @@ public class UserValidator implements Validator {
         String email = user.getEmail();
         String username = user.getUsername();
         String password = user.getPassword();
-        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "firstName", "user.firstName.empty");
-        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "lastName", "user.lastName.empty");
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "username", "user.username.empty");
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "email", "user.email.empty");
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "password", "user.password.empty");

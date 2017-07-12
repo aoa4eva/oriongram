@@ -12,39 +12,67 @@
         <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+        <script>
+            let ID = id => document.getElementById(id);
+        </script>
+
     </th:block>
 </head>
 <body>
 
 <!-- nav -->
-<nav class="navbar navbar-inverse navbar-fixed-top" th:fragment="nav">
-    <div class="container">
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand" href="/">SecureBones</a>
+<th:block th:fragment="nav">
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="/">OrionGram</a>
+            </div>
+            <div id="navbar" class="collapse navbar-collapse">
+                <ul class="nav navbar-nav">
+                    <li><a href="/login">Login</a></li>
+                    <li><a href="/logout">Logout</a></li>
+                    <li><a href="/register">Register</a></li>
+                   <!-- <th:block sec:authorize="isAuthenticated()"> -->
+                        <li ><a href="#"><input id="caption_input" style="display: none;" class="form-control" type="text" placeholder="Picture Caption"/></a></li>
+                        <li id="file_input"><a href="#"><input class="btn btn-warning" value="select an image" type="button"/></a></li>
+                        <li id="file_input_button" style="display: none;"><a href="#"><input class="btn btn-success" type="button" value="Upload"/></a></li>
+                   <!-- </th:block> -->
+
+                </ul>
+            </div><!--/.nav-collapse -->
         </div>
-        <div id="navbar" class="collapse navbar-collapse">
-            <ul class="nav navbar-nav">
-                <li><a href="/login">Login</a></li>
-                <li><a href="/logout">Logout</a></li>
-                <li><a href="/register">Register</a></li>
-            </ul>
-        </div><!--/.nav-collapse -->
-    </div>
-</nav>
+    </nav>
+    <!-- <th:block sec:authorize="isAuthenticated()"> -->
+        <form id="upload_form" th:object="${image}" method="POST" action="/upload" enctype="multipart/form-data" style="display: none;">
+            <input id="upload_file" type="file" name="file"/>
+            <input id="upload_caption" type="hidden" name="caption" th:field="*{caption}"/>
+        </form>
+    <script>
+        $('#file_input').click( () => { $('#upload_file').click() } );
+        $('#upload_form').on('change', () => {
+            ID('file_input').style.display = 'none';
+            ID('caption_input').style.display = 'inherit';
+            ID('file_input_button').style.display = 'inherit';
+            $('#file_input_button').click( () => {
+                if(ID('caption_input').value.length > 0) {
+                    ID('upload_caption').value = ID('caption_input').value;
+                    $('#upload_form').submit();
+                }
+            })
+        });
+    </script>
+        <!-- </th:block> -->
+    <br/><br/><br/><br/>
+</th:block>
 <!-- nav -->
 
-<div class="container">
-    <div class="starter-template">
-        <h1>SecureBones</h1>
-        <p class="lead">Use this document as a way to quickly start any new project.<br /> All you get is this text and a mostly barebones HTML document.</p>
-    </div>
-</div><!-- /.container -->
 
 
 </body>

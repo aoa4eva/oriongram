@@ -18,8 +18,6 @@ public class User {
     @Column(name = "password")
     @org.springframework.data.annotation.Transient
     private String password;
-    @Column(name = "name")
-    private String name;
     @Column(name = "username")
     private String username;
     @ManyToMany(fetch = FetchType.EAGER)
@@ -29,7 +27,6 @@ public class User {
     public User(String email, String password, String name, String username) {
         this.email = email;
         this.password = password;
-        this.name = name;
         this.username = username;
     }
     public User() {}
@@ -40,8 +37,6 @@ public class User {
     public void setEmail(String email) {this.email = email;}
     public String getPassword() {return password;}
     public void setPassword(String password) {this.password = password;}
-    public String getFirstName() {return name;}
-    public void setFirstName(String name) {this.name = name;}
     public String getUsername() {return username;}
     public void setUsername(String username) {this.username = username;}
     public Collection<Role> getRoles() {return roles;}
