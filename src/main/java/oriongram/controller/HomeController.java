@@ -56,7 +56,7 @@ public class HomeController {
 
 
     @RequestMapping("/upload")
-    public String upload(@RequestParam("file") MultipartFile file, Image image){
+    public String upload(@RequestParam("file") MultipartFile file, Image image, Model model){
         System.out.println(image.getCaption());
         try {
             Map uploadResult =  cloudc.upload(file.getBytes(), ObjectUtils.asMap("resourcetype", "auto"));
@@ -66,8 +66,11 @@ public class HomeController {
 
             System.out.println(url);
 
+            model.addAttribute("message", "You successfully uploaded '" + file.getOriginalFilename() + "'");
+            model.addAttribute("imageurl", uploadResult.get("url"));
         } catch (IOException e){
             e.printStackTrace();
+            model.addAttribute("message", "Sorry I can't upload that!");
         }
         return "login";
     }
