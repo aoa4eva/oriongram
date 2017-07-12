@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="www.thymeleaf.org " xmlns:sec="www.thymeleaf.org/extras/spring-security">
+<head>
+    <th:block th:replace="base :: head"></th:block>
+</head>
+<body>
+<div class="container">
+    <th:block th:replace="base :: nav"></th:block>
+
+    <script th:inline="javascript">
+        /*<![CDATA[*/
+        let filename = [[${filename}]];
+        let url = [[${url}]];
+        let fullUrl = `<img src="${url}${filename}" width="100%;"/>`;
+        console.log('the url is: ' + url);
+        console.log('the filename is: ' + filename);
+        /*]]>*/
+    </script>
+
+    <h1 th:text="${message}">message error</h1>
+
+    <div class="well">
+        <div class="well" id="edit_image" style="position: relative;"></div>
+        <input id="range" class="form-control" type="range" min="0" max="100" value="30"/>
+        <button id="original" class="btn btn-warning">original</button>
+        <button id="purple" class="btn btn-warning">purple filter</button>
+        <button id="blue" class="btn btn-warning">blue filter</button>
+        <button id="green" class="btn btn-warning">green filter</button>
+        <button id="yellow" class="btn btn-warning">yellow filter</button>
+        <button id="grayscale" class="btn btn-warning">grayscale</button>
+        <button id="blur_face" class="btn btn-warning">blur faces</button>
+        <button id="save" class="btn btn-success">save</button>
+    </div>
+
+    <form id="save_form" th:object="${image_edit}" method="POST" action="/save" style="display: none;">
+        <input id="src" type="hidden" name="src" th:field="*{src}"/>
+        <input type="hidden" name="caption" th:field="*{caption}"/>
+    </form>
+
+    <script>
+        ID('edit_image').innerHTML = fullUrl;
+
+        $('#purple').click( () => {
+            fullUrl = `<img src="${url}e_colorize:${ID('range').value},co_purple/${filename}" width="100%;"/>`;
+            ID('edit_image').innerHTML = fullUrl;
+        });
+        $('#blue').click( () => {
+            fullUrl = `<img src="${url}e_colorize:${ID('range').value},co_blue/${filename}" width="100%;"/>`;
+            ID('edit_image').innerHTML = fullUrl;
+        });
+        $('#green').click( () => {
+            fullUrl = `<img src="${url}e_colorize:${ID('range').value},co_green/${filename}" width="100%;"/>`;
+            ID('edit_image').innerHTML = fullUrl;
+        });
+        $('#yellow').click( () => {
+            fullUrl = `<img src="${url}e_colorize:${ID('range').value},co_yellow/${filename}" width="100%;"/>`;
+            ID('edit_image').innerHTML = fullUrl;
+        });
+
+
+        $('#grayscale').click( () => {
+            fullUrl = `<img src="${url}e_grayscale/${filename}" width="100%;"/>`;
+            ID('edit_image').innerHTML = fullUrl;
+        });
+        $('#blur_face').click( () => {
+            fullUrl = `<img src="${url}e_blur_faces/${filename}" width="100%;"/>`;
+            ID('edit_image').innerHTML = fullUrl;
+        });
+        $('#original').click( () => {
+            fullUrl = `<img src="${url}${filename}" width="100%;"/>`;
+            ID('edit_image').innerHTML = fullUrl;
+        });
+
+        $('#save').click( () => {
+            ID('src').value = fullUrl;
+            $('#save_form').submit();
+        });
+
+
+    </script>
+
+
+</div>
+</body>
+</html>

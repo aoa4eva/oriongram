@@ -16,7 +16,16 @@ public class Image {
     private int id;
     private String src;
     private String caption;
-    private String imgname;
+    private String username;
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
     public int getId() {
         return id;
     }
@@ -40,14 +49,5 @@ public class Image {
     public void setCaption(String caption) {
         this.caption = caption;
     }
-
-    public String getImgname() {
-        return imgname;
-    }
-
-    public void setImgname(String imgname) {
-        this.imgname = imgname;
-    }
-
 
 }
