@@ -10,10 +10,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import oriongram.config.CloudinaryConfig;
-import oriongram.model.Follow;
-import oriongram.model.FullImage;
-import oriongram.model.Image;
-import oriongram.model.User;
+import oriongram.model.*;
 import oriongram.repos.CommentRepository;
 import oriongram.repos.FollowRepository;
 import oriongram.repos.ImageRepository;
@@ -99,6 +96,25 @@ public class HomeController {
         return "following";
     }
 
+    @RequestMapping("/comment")
+    public String comment(Image image, Model model, Authentication authentication) {
+        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+        User user = userRepository.findByUsername(userDetails.getUsername());
+        int imageId = image.getId();
+        String body = image.getCaption();
+
+        Comment comment = new Comment();
+
+        comment.setBody(body);
+        comment.setDate(new Date().toString());
+        comment.setImageId(imageId);
+        comment.setUsername(user.getUsername());
+
+        commentRepository.save(comment);
+
+        return "redirect:/index";
+    }
+
     @RequestMapping("/like/{id}")
     public String like(@PathVariable("id") int id) {
 
@@ -169,9 +185,23 @@ public class HomeController {
     public String index(Model model, Authentication authentication) {
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();
         User user = userRepository.findByUsername(userDetails.getUsername());
+
+
+
+        ArrayList<FullImage> fullImages = new ArrayList<>();
+        Iterable<Image> images = imageRepository.findAllByUsername(user.getUsername());
+        for (Image i : images) {
+            FullImage thisImage = new FullImage();
+            thisImage.setImage(i);
+            thisImage.setComments(commentRepository.findByImageId(i.getId()));
+            fullImages.add(thisImage);
+        }
+
+
+
+
         newImg(model);
-        model.addAttribute("images", imageRepository.findAllByUsername(user.getUsername()));
-        model.addAttribute("user", user);
+        model.addAttribute("images", fullImages);
         return "index";
     }
 

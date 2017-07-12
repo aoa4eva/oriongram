@@ -8,14 +8,29 @@
         <th:block th:replace="base :: nav"></th:block>
 
         <th:block th:each="i : ${images}">
-
             <div class="well">
-                <th:block th:utext="${i.src}"></th:block>
-                <p th:text="${i.caption}"></p>
+                <th:block th:utext="${i.image.src}"></th:block>
+                <h3 th:text="${i.image.caption}"></h3>
+                <p th:text="${i.image.date}"></p>
+                <a th:href="@{'like/' + ${i.image.id}}"><button class="btn btn-sm btn-primary" th:text="${ 'like (' + {i.image.likes} + ' likes)'}"></button></a>
+                <a th:href="@{'follow/' + ${i.image.username}}"><button class="btn btn-sm btn-primary" th:text="${ 'follow ' + {i.image.username} }"></button></a>
+                <div class="well">
+                    <th:block th:each="c : ${i.comments}">
+
+                        <p>
+                            <th:block th:text="${c.username}"></th:block> at
+                            <th:block th:text="${c.date}"></th:block> said:
+                            <th:block th:text="${c.body}"></th:block>
+                        </p>
+
+                    </th:block>
+                    <form th:object="${image}" method="POST" action="/comment">
+                        <input type="text" class="form-control" th:field="*{caption}"/>
+                        <input type="hidden" name="id" th:value="${i.image.id}"/>
+                    </form>
+                </div>
             </div>
-
         </th:block>
-
    <!-- <div class="well">
             Logged in User: <th:block sec:authentication="name">name error</th:block>
             <th:block sec:authorize="isAuthenticated()">
