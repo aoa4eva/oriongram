@@ -1,5 +1,7 @@
 package oriongram.model;
 
+import org.hibernate.annotations.ColumnDefault;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -17,6 +19,24 @@ public class Image {
     private String src;
     private String caption;
     private String username;
+    private int likes;
+    private String date;
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
+
+    public int getLikes() {
+        return likes;
+    }
+
+    public void setLikes(int likes) {
+        this.likes = likes;
+    }
 
     public String getUsername() {
         return username;

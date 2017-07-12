@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="www.thymeleaf.org " xmlns:sec="www.thymeleaf.org/extras/spring-security">
+<head>
+    <th:block th:replace="base :: head"></th:block>
+</head>
+<body>
+<div class="container">
+
+    <th:block th:replace="base :: nav"></th:block>
+    <th:block th:each="i : ${images}">
+        <div class="well">
+            <th:block th:utext="${i.image.src}"></th:block>
+            <p th:text="${i.image.caption}"></p>
+            <p th:text="${i.image.username}"></p>
+            <p th:text="${i.image.date}"></p>
+            <a th:href="@{'like/' + ${i.image.id}}"><button class="btn btn-sm btn-primary" th:text="${ 'like (' + {i.image.likes} + ' likes)'}"></button></a>
+            <div class="well">
+                <th:block th:each="c : ${i.comments}">
+                    <p th:text="${c.body}"></p>
+                </th:block>
+            </div>
+        </div>
+    </th:block>
+
+</div>
+</body>
+</html>

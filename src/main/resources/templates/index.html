@@ -6,8 +6,17 @@
 <body>
     <div class="container">
         <th:block th:replace="base :: nav"></th:block>
-        <br/><br/><br/>
-        <div class="well">
+
+        <th:block th:each="i : ${images}">
+
+            <div class="well">
+                <th:block th:utext="${i.src}"></th:block>
+                <p th:text="${i.caption}"></p>
+            </div>
+
+        </th:block>
+
+   <!-- <div class="well">
             Logged in User: <th:block sec:authentication="name">name error</th:block>
             <th:block sec:authorize="isAuthenticated()">
                 This content is only shown to authenticated users.<br />
@@ -20,7 +29,7 @@
             <p sec:authorize="hasAuthority('USER')" >
                 This content is only shown to users.
             </p>
-        </div>
+        </div> -->
     </div>
 </body>
 </html>

@@ -32,24 +32,30 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="/">OrionGram</a>
+                <a class="navbar-brand" href="/index">OrionGram</a>
             </div>
             <div id="navbar" class="collapse navbar-collapse">
                 <ul class="nav navbar-nav">
-                    <li><a href="/login">Login</a></li>
-                    <li><a href="/logout">Logout</a></li>
-                    <li><a href="/register">Register</a></li>
-                   <!-- <th:block sec:authorize="isAuthenticated()"> -->
-                        <li ><a href="#"><input id="caption_input" style="display: none;" class="form-control" type="text" placeholder="Picture Caption"/></a></li>
-                        <li id="file_input"><a href="#"><input class="btn btn-warning" value="select an image" type="button"/></a></li>
-                        <li id="file_input_button" style="display: none;"><a href="#"><input class="btn btn-success" type="button" value="Upload"/></a></li>
-                   <!-- </th:block> -->
+
+                    <th:block sec:authorize="isAnonymous()">
+                        <li><a href="/login">Login</a></li>
+                        <li><a href="/register">Register</a></li>
+                    </th:block>
+
+                   <th:block sec:authorize="isAuthenticated()">
+                       <li><a href="/all">Global Feed</a></li>
+                       <li><a href="/following">Follow feed</a></li>
+                       <li><a href="/logout">Logout</a></li>
+                       <li ><a href="#"><input id="caption_input" style="display: none;" class="form-control" type="text" placeholder="Picture Caption"/></a></li>
+                       <li id="file_input"><a href="#"><input class="btn btn-warning" value="select an image" type="button"/></a></li>
+                       <li id="file_input_button" style="display: none;"><a href="#"><input class="btn btn-success" type="button" value="Upload"/></a></li>
+                   </th:block>
 
                 </ul>
             </div><!--/.nav-collapse -->
         </div>
     </nav>
-    <!-- <th:block sec:authorize="isAuthenticated()"> -->
+    <th:block sec:authorize="isAuthenticated()">
         <form id="upload_form" th:object="${image}" method="POST" action="/upload" enctype="multipart/form-data" style="display: none;">
             <input id="upload_file" type="file" name="file"/>
             <input id="upload_caption" type="hidden" name="caption" th:field="*{caption}"/>
@@ -68,7 +74,7 @@
             })
         });
     </script>
-        <!-- </th:block> -->
+        </th:block>
     <br/><br/><br/><br/>
 </th:block>
 <!-- nav -->
