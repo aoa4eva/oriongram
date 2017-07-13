@@ -24,6 +24,7 @@
         <input id="range" class="form-control" type="range" min="0" max="100" value="30"/>
         <button id="original" class="btn btn-warning">original</button>
         <button id="purple" class="btn btn-warning">purple filter</button>
+        <button id="red" class="btn btn-warning"red filter</button>
         <button id="blue" class="btn btn-warning">blue filter</button>
         <button id="green" class="btn btn-warning">green filter</button>
         <button id="yellow" class="btn btn-warning">yellow filter</button>
@@ -42,6 +43,10 @@
 
         $('#purple').click( () => {
             fullUrl = `<img src="${url}e_colorize:${ID('range').value},co_purple/${filename}" width="100%;"/>`;
+            ID('edit_image').innerHTML = fullUrl;
+        });
+        $('#red').click( () => {
+            fullUrl = `<img src="${url}e_colorize:${ID('range').value},co_red/${filename}" width="100%;"/>`;
             ID('edit_image').innerHTML = fullUrl;
         });
         $('#blue').click( () => {
