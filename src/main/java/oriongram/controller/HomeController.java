@@ -142,7 +142,7 @@ public class HomeController {
 
 
     @RequestMapping("/email/{id}")
-    public void sendEmail(@PathVariable("id") int id,Authentication authentication) {
+    public String sendEmail(@PathVariable("id") int id,Authentication authentication) {
         User user = getUser(authentication);
         String src = imageRepository.findOne(id).getSrc();
         src = src.substring(10, src.length() - 17);
@@ -157,7 +157,7 @@ public class HomeController {
         } catch(Exception e) {
             //do nothing
         }
-
+        return "redirect:/index";
     }
 
 
