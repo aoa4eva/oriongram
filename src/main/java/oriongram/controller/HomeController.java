@@ -23,6 +23,7 @@ import javax.mail.internet.InternetAddress;
 import javax.validation.Valid;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.Map;
 
@@ -75,6 +76,7 @@ public class HomeController {
         for (Image i : images)
             fullImages.add(new FullImage(i,commentRepository.findByImageId(i.getId()), thumbsUpRepository.findAllByImageId(i.getId())));
 
+        fullImages.sort((o1, o2) -> o1.compare(o2));
 
         model.addAttribute("images", fullImages);
         model.addAttribute("username", username);
@@ -140,7 +142,6 @@ public class HomeController {
         return "redirect:/index";
     }
 
-
     @RequestMapping("/email/{id}")
     public String sendEmail(@PathVariable("id") int id,Authentication authentication) {
         User user = getUser(authentication);
@@ -155,11 +156,10 @@ public class HomeController {
                     .encoding("UTF-8").build();
             emailService.send(email);
         } catch(Exception e) {
-            //do nothing
+            //not my problem
         }
         return "redirect:/index";
     }
-
 
     @RequestMapping("/upload")
     public String upload(@RequestParam("file") MultipartFile file, Image image, Model model){

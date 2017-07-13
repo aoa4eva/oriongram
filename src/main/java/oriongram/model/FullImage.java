@@ -25,4 +25,10 @@ public class FullImage {
     }
 
     public String[] getThumbsUps() {return thumbsUps;}
+
+    public int compare(FullImage o2) {
+        if (o2.getThumbsUps().length > this.getThumbsUps().length)
+            return 1;
+        return 0;
+    }
 }
