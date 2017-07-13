@@ -37,6 +37,10 @@
                 display: none;
                 background-color: white;
             }
+            .center {
+                width: 100%;
+                text-align: center;
+            }
         </style>
         <script>
             let ID = id => document.getElementById(id);
@@ -110,7 +114,7 @@
 <th:block th:fragment="images">
     <th:block th:each="i : ${images}">
         <div class="well">
-            <th:block th:utext="${i.image.src}"></th:block>
+            <span class="center"><th:block th:utext="${i.image.src}"></th:block></span>
             <h3 th:text="${i.image.caption}"></h3>
             <p>by: <th:block th:text="${i.image.username}">username error</th:block> on <th:block th:text="${i.image.date}">date error</th:block></p>
             <a th:href="@{'thumbsUp/' + ${i.image.id}}"><button class="btn btn-sm btn-success" th:text="${ 'thumbsUp (' + {i.thumbsUps.length} + ')'}"></button></a>
