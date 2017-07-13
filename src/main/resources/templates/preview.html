@@ -28,6 +28,7 @@
         <button id="blue" class="btn btn-warning">blue filter</button>
         <button id="green" class="btn btn-warning">green filter</button>
         <button id="yellow" class="btn btn-warning">yellow filter</button>
+        <button id="brightness" class="btn btn-warning">change brightness</button>
         <button id="grayscale" class="btn btn-warning">grayscale</button>
         <button id="blur_face" class="btn btn-warning">blur faces</button>
         <button id="save" class="btn btn-success">save</button>
@@ -63,6 +64,10 @@
         });
 
 
+        $('#brightness').click( () => {
+            fullUrl = `<img src="${url}e_brightness:${ID('range').value-50}/${filename}" width="100%;"/>`;
+            ID('edit_image').innerHTML = fullUrl;
+        });
         $('#grayscale').click( () => {
             fullUrl = `<img src="${url}e_grayscale/${filename}" width="100%;"/>`;
             ID('edit_image').innerHTML = fullUrl;
