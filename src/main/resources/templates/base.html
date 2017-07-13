@@ -41,8 +41,7 @@
                 position: relative;
                 width: 100%;
                 text-align: center;
-                padding-left: 25%;
-                padding-right: 25%;
+                padding: 0 25%;
             }
         </style>
         <script>
@@ -120,7 +119,7 @@
     </script>
 
     <th:block th:each="i : ${images}">
-        <div class="well">
+        <div class="well" style="position: relative;">
             <span th:attr="id=#{i.image.id}" class="center"><th:block th:utext="${i.image.src}"></th:block></span>
             <h3 th:text="${i.image.caption}"></h3>
             <p>by: <th:block th:text="${i.image.username}">username error</th:block> on <th:block th:text="${i.image.date}">date error</th:block></p>
@@ -166,9 +165,9 @@
         };
 
         //click to make images larger
-        for (let id in ids)
-            ID(id+'').addEventListener('click', () => {
-                ID(id+'').style.padding = 0;
+        for (let i = 0; i < ids.length; i++)
+            ID(ids[i]).addEventListener('click', () => {
+                ID(ids[i]).style.padding = 0;
             });
 
     </script>
