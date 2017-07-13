@@ -65,7 +65,7 @@
 
 
         $('#brightness').click( () => {
-            fullUrl = `<img src="${url}e_brightness:${ID('range').value-50}/${filename}" width="100%;"/>`;
+            fullUrl = `<img src="${url}e_brightness:${(ID('range').value-50)*2}/${filename}" width="100%;"/>`;
             ID('edit_image').innerHTML = fullUrl;
         });
         $('#grayscale').click( () => {
