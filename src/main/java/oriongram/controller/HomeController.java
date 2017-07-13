@@ -22,10 +22,11 @@ import oriongram.services.UserValidator;
 import javax.mail.internet.InternetAddress;
 import javax.validation.Valid;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.Date;
-import java.util.Map;
+import java.util.*;
+import java.util.function.Function;
+import java.util.function.ToDoubleFunction;
+import java.util.function.ToIntFunction;
+import java.util.function.ToLongFunction;
 
 @Controller
 public class HomeController {
@@ -76,7 +77,23 @@ public class HomeController {
         for (Image i : images)
             fullImages.add(new FullImage(i,commentRepository.findByImageId(i.getId()), thumbsUpRepository.findAllByImageId(i.getId())));
 
-        fullImages.sort((o1, o2) -> o1.compare(o2));
+
+        for (int i = 0; i < fullImages.size(); i++){
+
+            for (int j = i+1; j < fullImages.size() + 1; j++) {
+
+                if (fullImages.get(i).getThumbsUps().length > fullImages.get(j).getThumbsUps().length) {
+
+                    Collections.swap(fullImages, i, j);
+
+                }
+
+            }
+
+        }
+
+
+
 
         model.addAttribute("images", fullImages);
         model.addAttribute("username", username);
