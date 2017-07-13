@@ -11,7 +11,7 @@
         /*<![CDATA[*/
         let filename = [[${filename}]];
         let url = [[${url}]];
-        let fullUrl = `<img src="${url}${filename}" width="60%;"/>`;
+        let fullUrl = `<img src="${url}${filename}" width="100%;"/>`;
         console.log('the url is: ' + url);
         console.log('the filename is: ' + filename);
         /*]]>*/
@@ -41,33 +41,33 @@
         ID('edit_image').innerHTML = fullUrl;
 
         $('#purple').click( () => {
-            fullUrl = `<img src="${url}e_colorize:${ID('range').value},co_purple/${filename}" width="60%;"/>`;
+            fullUrl = `<img src="${url}e_colorize:${ID('range').value},co_purple/${filename}" width="100%;"/>`;
             ID('edit_image').innerHTML = fullUrl;
         });
         $('#blue').click( () => {
-            fullUrl = `<img src="${url}e_colorize:${ID('range').value},co_blue/${filename}" width="60%;"/>`;
+            fullUrl = `<img src="${url}e_colorize:${ID('range').value},co_blue/${filename}" width="100%;"/>`;
             ID('edit_image').innerHTML = fullUrl;
         });
         $('#green').click( () => {
-            fullUrl = `<img src="${url}e_colorize:${ID('range').value},co_green/${filename}" width="60%;"/>`;
+            fullUrl = `<img src="${url}e_colorize:${ID('range').value},co_green/${filename}" width="100%;"/>`;
             ID('edit_image').innerHTML = fullUrl;
         });
         $('#yellow').click( () => {
-            fullUrl = `<img src="${url}e_colorize:${ID('range').value},co_yellow/${filename}" width="60%;"/>`;
+            fullUrl = `<img src="${url}e_colorize:${ID('range').value},co_yellow/${filename}" width="100%;"/>`;
             ID('edit_image').innerHTML = fullUrl;
         });
 
 
         $('#grayscale').click( () => {
-            fullUrl = `<img src="${url}e_grayscale/${filename}" width="60%;"/>`;
+            fullUrl = `<img src="${url}e_grayscale/${filename}" width="100%;"/>`;
             ID('edit_image').innerHTML = fullUrl;
         });
         $('#blur_face').click( () => {
-            fullUrl = `<img src="${url}e_blur_faces/${filename}" width="60%;"/>`;
+            fullUrl = `<img src="${url}e_blur_faces/${filename}" width="100%;"/>`;
             ID('edit_image').innerHTML = fullUrl;
         });
         $('#original').click( () => {
-            fullUrl = `<img src="${url}${filename}" width="60%;"/>`;
+            fullUrl = `<img src="${url}${filename}" width="100%;"/>`;
             ID('edit_image').innerHTML = fullUrl;
         });
 
