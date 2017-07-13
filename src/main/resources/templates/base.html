@@ -167,8 +167,8 @@
 
         //click to make images larger
         for (let id in ids)
-            $(`#${id}`).click( () => {
-                ID(`#${id}`).style.margin = 0;
+            ID(id+'').addEventListener('click', () => {
+                ID(id+'').style.padding = 0;
             });
 
     </script>
