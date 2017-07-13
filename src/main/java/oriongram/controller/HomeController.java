@@ -205,6 +205,7 @@ public class HomeController {
         if (result.hasErrors()) {
             return "registration";
         } else {
+            //todo add default image here: user.setProfileImage('default')
             userService.saveUser(user);
             model.addAttribute("message", "User Account Successfully Created");
         }
