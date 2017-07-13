@@ -100,6 +100,11 @@ public class HomeController {
             for (Image i : imageRepository.findAllByUsername(f.getFollowed()))
                 fullImages.add(new FullImage(i,commentRepository.findByImageId(i.getId()), thumbsUpRepository.findAllByImageId(i.getId())));
 
+        for (int i = 0; i < fullImages.size(); i++)
+            for (int j = i+1; j < fullImages.size(); j++)
+                if (fullImages.get(i).getThumbsUps().length < fullImages.get(j).getThumbsUps().length)
+                    Collections.swap(fullImages, i, j);
+
         model.addAttribute("images", fullImages);
         return "images";
     }
@@ -109,16 +114,12 @@ public class HomeController {
         User user = getUser(authentication);
         int imageId = image.getId();
         String body = image.getCaption();
-
         Comment comment = new Comment();
-
         comment.setBody(body);
         comment.setDate(new Date().toString());
         comment.setImageId(imageId);
         comment.setUsername(user.getUsername());
-
         commentRepository.save(comment);
-
         return "redirect:/index";
     }
 
@@ -135,14 +136,10 @@ public class HomeController {
     @RequestMapping("/follow/{username}")
     public String follow(@PathVariable("username") String username, Authentication authentication) {
         User user = getUser(authentication);
-
         Follow follow = new Follow();
-
         follow.setFollower(user.getUsername());
         follow.setFollowed(username);
-
         followRepository.save(follow);
-
         return "redirect:/index";
     }
 
@@ -216,13 +213,15 @@ public class HomeController {
                     thumbsUpRepository.findAllByImageId(i.getId()))
             );
 
+        for (int i = 0; i < fullImages.size(); i++)
+            for (int j = i+1; j < fullImages.size(); j++)
+                if (fullImages.get(i).getThumbsUps().length < fullImages.get(j).getThumbsUps().length)
+                    Collections.swap(fullImages, i, j);
+
         newImg(model);
         model.addAttribute("images", fullImages);
         return "images";
     }
-
-
-
 
     @RequestMapping(value="/register", method = RequestMethod.GET)
     public String showRegistrationPage(Model model){
@@ -248,7 +247,6 @@ public class HomeController {
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();
         return userRepository.findByUsername(userDetails.getUsername());
     }
-
     private boolean hasThumbsUp(int imageId, String username) {
         for (ThumbsUp thumbsUp : thumbsUpRepository.findAllByUsername(username))
             if (thumbsUp.getImageId() == imageId)
