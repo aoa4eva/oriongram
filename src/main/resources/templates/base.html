@@ -194,8 +194,16 @@
             <th:block th:utext="${i.image.src}"></th:block>
             <h3 th:text="${i.image.caption}"></h3>
             <p>by: <th:block th:text="${i.image.username}">username error</th:block> on <th:block th:text="${i.image.date}">date error</th:block></p>
+
+            <!--
+                       todo refactor it
             <a th:href="@{'thumbsUp/' + ${i.image.id}}"><button class="btn btn-sm btn-success" th:text="${ 'thumbsUp (' + {i.thumbsUps.length} + ')'}"></button></a>
             <a th:href="@{'follow/' + ${i.image.username}}"><button class="btn btn-sm btn-primary" th:text="${ 'follow ' + {i.image.username} }"></button></a>
+                   ^--refactor that shit--^
+            -->
+
+            <th:block th:utext="${i.buttons}">buttons error</th:block>
+
             <a th:href="@{'email/' + ${i.image.id}}"><button class="btn btn-sm btn-info">email link</button></a>
             <br/><br/>
             <button class="accordion"><th:block th:text="${i.comments.size()}">comment size error</th:block> comments (click to view or add a comment)</button>

@@ -56,7 +56,6 @@ public class HomeController {
         this.emailService = emailService;
     }
 
-
     @RequestMapping("/")
     public  String home() {
         return "redirect:/index";
@@ -75,7 +74,7 @@ public class HomeController {
         ArrayList<FullImage> fullImages = new ArrayList<>();
         Iterable<Image> images = imageRepository.findAll();
         for (Image i : images)
-            fullImages.add(new FullImage(i,commentRepository.findByImageId(i.getId()), thumbsUpRepository.findAllByImageId(i.getId())));
+            fullImages.add(new FullImage(i,commentRepository.findByImageId(i.getId()), thumbsUpRepository.findAllByImageId(i.getId()),followRepository));
 
         fullImages = sort(fullImages);
 
@@ -95,7 +94,7 @@ public class HomeController {
 
         for (Follow f : following)
             for (Image i : imageRepository.findAllByUsername(f.getFollowed()))
-                fullImages.add(new FullImage(i,commentRepository.findByImageId(i.getId()), thumbsUpRepository.findAllByImageId(i.getId())));
+                fullImages.add(new FullImage(i,commentRepository.findByImageId(i.getId()), thumbsUpRepository.findAllByImageId(i.getId()), followRepository));
 
         fullImages = sort(fullImages);
 
@@ -127,6 +126,18 @@ public class HomeController {
         return "redirect:/index";
     }
 
+    @RequestMapping("/thumbsDown/{id}")
+    public String thumbsdown(@PathVariable("id") int id, Authentication authentication) {
+        User user = getUser(authentication);
+
+        String userName = user.getUsername();
+
+        for (ThumbsUp up : thumbsUpRepository.findAllByImageId(id))
+            if (up.getUsername().equals(userName))
+                thumbsUpRepository.delete(up);
+        return "redirect:/index";
+    }
+
     @RequestMapping("/follow/{username}")
     public String follow(@PathVariable("username") String username, Authentication authentication) {
         User user = getUser(authentication);
@@ -136,6 +147,19 @@ public class HomeController {
         followRepository.save(follow);
         return "redirect:/index";
     }
+
+
+    @RequestMapping("/unfollow/{username}")
+    public String unFollow(@PathVariable("username") String username, Authentication authentication) {
+        User user = getUser(authentication);
+
+        for (Follow fol : followRepository.findAllByFollower(user.getUsername()))
+            if (fol.getFollowed().equals(username))
+                followRepository.delete(fol);
+
+        return "redirect:/index";
+    }
+
 
     @RequestMapping("/email/{id}")
     public String sendEmail(@PathVariable("id") int id,Authentication authentication) {
@@ -197,11 +221,13 @@ public class HomeController {
     @RequestMapping("/index")
     public String index(Model model, Authentication authentication) {
         User user = getUser(authentication);
-
         ArrayList<FullImage> fullImages = new ArrayList<>();
         ArrayList<Image> images = imageRepository.findAllByUsername(user.getUsername());
-        for (Image i : images)
-            fullImages.add(new FullImage(i, commentRepository.findByImageId(i.getId()), thumbsUpRepository.findAllByImageId(i.getId())));
+        for (Image i : images) {
+            FullImage full = new FullImage(i, commentRepository.findByImageId(i.getId()), thumbsUpRepository.findAllByImageId(i.getId()), followRepository);
+            full.addButtons(user.getUsername());
+            fullImages.add(full);
+        }
 
         fullImages = sort(fullImages);
 
