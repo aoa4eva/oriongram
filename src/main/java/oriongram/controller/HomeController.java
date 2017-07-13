@@ -81,6 +81,9 @@ public class HomeController {
             for (int j = i+1; j < fullImages.size(); j++)
                 if (fullImages.get(i).getThumbsUps().length < fullImages.get(j).getThumbsUps().length)
                     Collections.swap(fullImages, i, j);
+                else if (fullImages.get(i).getComments().size() < fullImages.get(j).getComments().size() &&
+                        fullImages.get(i).getThumbsUps().length == fullImages.get(j).getThumbsUps().length)
+                    Collections.swap(fullImages, i, j);
 
         model.addAttribute("images", fullImages);
         model.addAttribute("username", username);
