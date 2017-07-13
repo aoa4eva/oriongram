@@ -40,6 +40,8 @@
             .center {
                 width: 100%;
                 text-align: center;
+                margin-left: 25%;
+                margin-right: 25%;
             }
         </style>
         <script>
@@ -112,9 +114,13 @@
 
 <!-- images -->
 <th:block th:fragment="images">
+    <script>
+        let ids = [];
+    </script>
+
     <th:block th:each="i : ${images}">
         <div class="well">
-            <span class="center"><th:block th:utext="${i.image.src}"></th:block></span>
+            <span th:attr="id=#{i.images.id}" class="center"><th:block th:utext="${i.image.src}"></th:block></span>
             <h3 th:text="${i.image.caption}"></h3>
             <p>by: <th:block th:text="${i.image.username}">username error</th:block> on <th:block th:text="${i.image.date}">date error</th:block></p>
             <a th:href="@{'thumbsUp/' + ${i.image.id}}"><button class="btn btn-sm btn-success" th:text="${ 'thumbsUp (' + {i.thumbsUps.length} + ')'}"></button></a>
@@ -137,6 +143,12 @@
                 <br/>
             </div>
         </div>
+
+        <script th:inline="javascript">
+            /*<![CDATA[*/
+            ids.push([[${i.images.id}]]);
+            /*]]>*/
+        </script>
     </th:block>
     <script>      //-_-//accordion script//-_-//
     let acc = document.getElementsByClassName('accordion');
@@ -151,6 +163,13 @@
                 panel.style.display = 'block';
             }
         };
+
+        //click to make images larger
+        for (let id in ids)
+            $(`#${id}`).click( () => {
+                ID(`#${id}`).style.margin = 0;
+            });
+
     </script>
 </th:block>
 <!-- images -->
