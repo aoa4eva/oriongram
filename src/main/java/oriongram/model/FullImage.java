@@ -3,11 +3,9 @@ package oriongram.model;
 import java.util.ArrayList;
 
 public class FullImage {
-
     private Image image;
     private ArrayList<Comment> comments;
     private String[] thumbsUps;
-
     public FullImage(Image image, ArrayList<Comment> comments, ArrayList<ThumbsUp> thumbsUps) {
         this.image = image;
         this.comments = comments;
@@ -15,15 +13,8 @@ public class FullImage {
         for (int i = 0; i < thumbsUps.size(); i++)
             this.thumbsUps[i] = thumbsUps.get(i).getUsername();
     }
-
-    public Image getImage() {
-        return image;
-    }
-
-    public ArrayList<Comment> getComments() {
-        return comments;
-    }
-
+    public Image getImage() {return image;}
+    public ArrayList<Comment> getComments() {return comments;}
     public String[] getThumbsUps() {return thumbsUps;}
 
 }
