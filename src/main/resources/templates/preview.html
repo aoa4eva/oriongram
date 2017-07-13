@@ -29,6 +29,7 @@
         <button id="green" class="btn btn-warning">green filter</button>
         <button id="yellow" class="btn btn-warning">yellow filter</button>
         <button id="brightness" class="btn btn-warning">change brightness</button>
+        <button id="saturation" class="btn btn-warning">change saturation</button>
         <button id="grayscale" class="btn btn-warning">grayscale</button>
         <button id="blur_face" class="btn btn-warning">blur faces</button>
         <button id="save" class="btn btn-success">save</button>
@@ -64,6 +65,10 @@
         });
 
 
+        $('#saturation').click( () => {
+            fullUrl = `<img src="${url}e_saturation:${(ID('range').value-50)*2}/${filename}" width="100%;"/>`;
+            ID('edit_image').innerHTML = fullUrl;
+        });
         $('#brightness').click( () => {
             fullUrl = `<img src="${url}e_brightness:${(ID('range').value-50)*2}/${filename}" width="100%;"/>`;
             ID('edit_image').innerHTML = fullUrl;
