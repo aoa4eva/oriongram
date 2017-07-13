@@ -21,18 +21,18 @@
 
     <div class="well">
         <div class="well" id="edit_image" style="position: relative;"></div>
-        <input id="range" class="form-control" type="range" min="0" max="100" value="30"/>
-        <button id="original" class="btn btn-warning">original</button>
+        <input id="range" class="form-control" type="range" min="0" max="100" value="30"/><br/>
+        <button id="original" class="btn btn-info">original</button>
         <button id="purple" class="btn btn-warning">purple filter</button>
-        <button id="red" class="btn btn-warning"red filter</button>
-        <button id="blue" class="btn btn-warning">blue filter</button>
-        <button id="green" class="btn btn-warning">green filter</button>
-        <button id="yellow" class="btn btn-warning">yellow filter</button>
+        <button id="red" class="btn btn-primary"red filter</button>
+        <button id="blue" class="btn btn-danger">blue filter</button>
+        <button id="green" class="btn btn-success">green filter</button>
+        <button id="yellow" class="btn btn-info">yellow filter</button>
         <button id="brightness" class="btn btn-warning">change brightness</button>
-        <button id="saturation" class="btn btn-warning">change saturation</button>
-        <button id="grayscale" class="btn btn-warning">grayscale</button>
-        <button id="blur_face" class="btn btn-warning">blur faces</button>
-        <button id="save" class="btn btn-success">save</button>
+        <button id="saturation" class="btn btn-primary">change saturation</button>
+        <button id="grayscale" class="btn btn-danger">grayscale</button>
+        <button id="blur_face" class="btn btn-success">blur faces</button>
+        <button id="save" class="btn btn-default">save</button>
     </div>
 
     <form id="save_form" th:object="${image_edit}" method="POST" action="/save" style="display: none;">
