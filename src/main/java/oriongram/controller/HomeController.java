@@ -134,6 +134,17 @@ public class HomeController {
         return "redirect:/index";
     }
 
+    @RequestMapping("/delete/{id}")
+    public String delete(@PathVariable("id") int id, Authentication authentication) {
+        User user = getUser(authentication);
+        for (ThumbsUp up : thumbsUpRepository.findAllByImageId(id))
+            thumbsUpRepository.delete(up);
+        for (Comment up : commentRepository.findByImageId(id))
+            commentRepository.delete(up);
+        imageRepository.delete(imageRepository.findOne(id));
+        return "redirect:/index";
+    }
+
     @RequestMapping("/thumbsDown/{id}")
     public String thumbsdown(@PathVariable("id") int id, Authentication authentication) {
         User user = getUser(authentication);
