@@ -77,23 +77,10 @@ public class HomeController {
         for (Image i : images)
             fullImages.add(new FullImage(i,commentRepository.findByImageId(i.getId()), thumbsUpRepository.findAllByImageId(i.getId())));
 
-
-        for (int i = 0; i < fullImages.size(); i++){
-
-            for (int j = i+1; j < fullImages.size() + 1; j++) {
-
-                if (fullImages.get(i).getThumbsUps().length > fullImages.get(j).getThumbsUps().length) {
-
+        for (int i = 0; i < fullImages.size(); i++)
+            for (int j = i+1; j < fullImages.size(); j++)
+                if (fullImages.get(i).getThumbsUps().length > fullImages.get(j).getThumbsUps().length)
                     Collections.swap(fullImages, i, j);
-
-                }
-
-            }
-
-        }
-
-
-
 
         model.addAttribute("images", fullImages);
         model.addAttribute("username", username);
