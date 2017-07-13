@@ -40,7 +40,7 @@ public class FullImage {
         else
             buttons += String.format("<a href=\"unfollow/%s\"><button class=\"btn btn-sm btn-danger\" >unfollow %s</button></a>", image.getUsername(), image.getUsername());
         if (username.equals(image.getUsername()))
-            buttons += String.format(" <a href=\"delete/%s\"><button class=\"btn btn-sm btn-danger\" >delete post</a>", image.getId());
+            buttons += String.format(" <a href=\"delete/%s\"><button class=\"btn btn-sm btn-danger\" >delete post</button></a> ", image.getId());
 
         //<a th:href="@{'thumbsUp/' + ${i.image.id}}"><button class="btn btn-sm btn-success" th:text="${ 'thumbsUp (' + {i.thumbsUps.length} + ')'}"></button></a>
         //<a th:href="@{'follow/' + ${i.image.username}}"><button class="btn btn-sm btn-primary" th:text="${ 'follow ' + {i.image.username} }"></button></a>
