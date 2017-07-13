@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="www.thymeleaf.org " xmlns:sec="www.thymeleaf.org/extras/spring-security">
+<head>
+    <th:block th:replace="base :: head"></th:block>
+</head>
+<body>
+<div class="container">
+    <th:block th:replace="base :: nav"></th:block>
+
+    <div class="row">
+
+        <div class="col-sm-4">
+
+            <th:block th:replace="base :: profile"></th:block>
+
+        </div>
+
+        <div class="col-sm-8">
+
+            <th:block th:replace="base :: images"></th:block>
+
+        </div>
+
+    </div>
+
+</div>
+</body>
+</html>

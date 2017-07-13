@@ -2,27 +2,27 @@ package oriongram.model;
 
 import java.util.ArrayList;
 
-/**
- * Created by student on 7/12/17.
- */
 public class FullImage {
 
     private Image image;
     private ArrayList<Comment> comments;
+    private String[] thumbsUps;
+
+    public FullImage(Image image, ArrayList<Comment> comments, ArrayList<ThumbsUp> thumbsUps) {
+        this.image = image;
+        this.comments = comments;
+        this.thumbsUps = new String[thumbsUps.size()];
+        for (int i = 0; i < thumbsUps.size(); i++)
+            this.thumbsUps[i] = thumbsUps.get(i).getUsername();
+    }
 
     public Image getImage() {
         return image;
-    }
-
-    public void setImage(Image image) {
-        this.image = image;
     }
 
     public ArrayList<Comment> getComments() {
         return comments;
     }
 
-    public void setComments(ArrayList<Comment> comments) {
-        this.comments = comments;
-    }
+    public String[] getThumbsUps() {return thumbsUps;}
 }

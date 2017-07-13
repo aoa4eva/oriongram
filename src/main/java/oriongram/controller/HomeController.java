@@ -11,10 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import oriongram.config.CloudinaryConfig;
 import oriongram.model.*;
-import oriongram.repos.CommentRepository;
-import oriongram.repos.FollowRepository;
-import oriongram.repos.ImageRepository;
-import oriongram.repos.UserRepository;
+import oriongram.repos.*;
 import oriongram.services.UserService;
 import oriongram.services.UserValidator;
 
@@ -35,9 +32,10 @@ public class HomeController {
     private UserRepository userRepository;
     private CommentRepository commentRepository;
     private FollowRepository followRepository;
+    private ThumbsUpRepository thumbsUpRepository;
 
     @Autowired
-    public HomeController (UserValidator userValidator, ImageRepository imageRepository, CommentRepository commentRepository
+    public HomeController (UserValidator userValidator, ImageRepository imageRepository, CommentRepository commentRepository, ThumbsUpRepository thumbsUpRepository
             , FollowRepository followRepository, UserService userService, CloudinaryConfig cloudc, UserRepository userRepository) {
         this.userValidator = userValidator;
         this.imageRepository = imageRepository;
@@ -46,6 +44,7 @@ public class HomeController {
         this.userRepository = userRepository;
         this.commentRepository = commentRepository;
         this.followRepository = followRepository;
+        this.thumbsUpRepository = thumbsUpRepository;
     }
 
 
@@ -61,45 +60,40 @@ public class HomeController {
     }
 
     @RequestMapping("/all")
-    public String all(Model model) {
+    public String all(Model model,Authentication authentication) {
         newImg(model);
+        String username = getUser(authentication).getUsername();
         ArrayList<FullImage> fullImages = new ArrayList<>();
         Iterable<Image> images = imageRepository.findAll();
-        for (Image i : images) {
-            FullImage thisImage = new FullImage();
-            thisImage.setImage(i);
-            thisImage.setComments(commentRepository.findByImageId(i.getId()));
-            fullImages.add(thisImage);
-        }
+        for (Image i : images)
+            fullImages.add(new FullImage(i,commentRepository.findByImageId(i.getId()), thumbsUpRepository.findAllByImageId(i.getId())));
+
+
         model.addAttribute("images", fullImages);
-        return "global";
+        model.addAttribute("username", username);
+
+        return "images";
     }
 
     @RequestMapping("/following")
     public String following(Model model, Authentication authentication) {
-        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
-        User user = userRepository.findByUsername(userDetails.getUsername());
+        User user = getUser(authentication);
 
         newImg(model);
         ArrayList<FullImage> fullImages = new ArrayList<>();
         ArrayList<Follow> following = followRepository.findAllByFollower(user.getUsername());
 
         for (Follow f : following)
-            for (Image i : imageRepository.findAllByUsername(f.getFollowed())) {
-                FullImage thisImage = new FullImage();
-                thisImage.setImage(i);
-                thisImage.setComments(commentRepository.findByImageId(i.getId()));
-                fullImages.add(thisImage);
-            }
+            for (Image i : imageRepository.findAllByUsername(f.getFollowed()))
+                fullImages.add(new FullImage(i,commentRepository.findByImageId(i.getId()), thumbsUpRepository.findAllByImageId(i.getId())));
 
         model.addAttribute("images", fullImages);
-        return "following";
+        return "images";
     }
 
     @RequestMapping("/comment")
     public String comment(Image image, Model model, Authentication authentication) {
-        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
-        User user = userRepository.findByUsername(userDetails.getUsername());
+        User user = getUser(authentication);
         int imageId = image.getId();
         String body = image.getCaption();
 
@@ -115,21 +109,19 @@ public class HomeController {
         return "redirect:/index";
     }
 
-    @RequestMapping("/like/{id}")
-    public String like(@PathVariable("id") int id) {
-
-        Image image = imageRepository.findOne(id);
-        image.setLikes(image.getLikes() + 1);
-
-        imageRepository.save(image);
-
+    @RequestMapping("/thumbsUp/{id}")
+    public String thumbsUp(@PathVariable("id") int id, Authentication authentication) {
+        User user = getUser(authentication);
+        String userName = user.getUsername();
+        int imageId = imageRepository.findOne(id).getId();
+        if (!hasThumbsUp(imageId,userName))
+            thumbsUpRepository.save(new ThumbsUp(imageId,userName));
         return "redirect:/index";
     }
 
     @RequestMapping("/follow/{username}")
     public String follow(@PathVariable("username") String username, Authentication authentication) {
-        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
-        User user = userRepository.findByUsername(userDetails.getUsername());
+        User user = getUser(authentication);
 
         Follow follow = new Follow();
 
@@ -172,10 +164,8 @@ public class HomeController {
 
     @RequestMapping("/save")
     public String save(Image image, Authentication authentication) {
-        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
-        User user = userRepository.findByUsername(userDetails.getUsername());
+        User user = getUser(authentication);
         image.setUsername(user.getUsername());
-        image.setLikes(0);
         image.setDate(new Date().toString());
         imageRepository.save(image);
         return "redirect:/index";
@@ -183,26 +173,20 @@ public class HomeController {
 
     @RequestMapping("/index")
     public String index(Model model, Authentication authentication) {
-        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
-        User user = userRepository.findByUsername(userDetails.getUsername());
-
-
+        User user = getUser(authentication);
 
         ArrayList<FullImage> fullImages = new ArrayList<>();
-        Iterable<Image> images = imageRepository.findAllByUsername(user.getUsername());
-        for (Image i : images) {
-            FullImage thisImage = new FullImage();
-            thisImage.setImage(i);
-            thisImage.setComments(commentRepository.findByImageId(i.getId()));
-            fullImages.add(thisImage);
-        }
-
-
-
+        ArrayList<Image> images = imageRepository.findAllByUsername(user.getUsername());
+        for (Image i : images)
+            fullImages.add(new FullImage(
+                    i,
+                    commentRepository.findByImageId(i.getId()),
+                    thumbsUpRepository.findAllByImageId(i.getId()))
+            );
 
         newImg(model);
         model.addAttribute("images", fullImages);
-        return "index";
+        return "images";
     }
 
 
@@ -227,7 +211,18 @@ public class HomeController {
         return "login";
     }
 
-    public void newImg(Model model) { model.addAttribute("image", new Image()); }
+    private User getUser(Authentication authentication) {
+        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+        return userRepository.findByUsername(userDetails.getUsername());
+    }
+
+    private boolean hasThumbsUp(int imageId, String username) {
+        for (ThumbsUp thumbsUp : thumbsUpRepository.findAllByUsername(username))
+            if (thumbsUp.getImageId() == imageId)
+                return true;
+        return false;
+    }
+    private void newImg(Model model) { model.addAttribute("image", new Image()); }
     public UserValidator getUserValidator() {
         return userValidator;
     }

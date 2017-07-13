@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="www.thymeleaf.org ">
 <head>
+
+    <!-- head -->
     <th:block th:fragment="head">
         <meta charset="utf-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -40,6 +42,8 @@
             let ID = id => document.getElementById(id);
         </script>
     </th:block>
+    <!-- head -->
+
 </head>
 <body>
 
@@ -54,7 +58,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="/index">OrionGram</a>
+                <a class="navbar-brand" href="#">OrionGram</a>
             </div>
             <div id="navbar" class="collapse navbar-collapse">
                 <ul class="nav navbar-nav">
@@ -65,6 +69,7 @@
                     </th:block>
 
                    <th:block sec:authorize="isAuthenticated()">
+                       <li><a href="/index">Your Feed</a></li>
                        <li><a href="/all">Global Feed</a></li>
                        <li><a href="/following">Follow feed</a></li>
                        <li><a href="/logout">Logout</a></li>
@@ -101,6 +106,62 @@
 </th:block>
 <!-- nav -->
 
+<!-- images -->
+<th:block th:fragment="images">
+    <th:block th:each="i : ${images}">
+        <div class="well">
+            <th:block th:utext="${i.image.src}"></th:block>
+            <h3 th:text="${i.image.caption}"></h3>
+            <p>by: <th:block th:text="${i.image.username}">username error</th:block> on <th:block th:text="${i.image.date}">date error</th:block></p>
+            <a th:href="@{'thumbsUp/' + ${i.image.id}}"><button class="btn btn-sm btn-success" th:text="${ 'thumbsUp (' + {i.thumbsUps.length} + ')'}"></button></a>
+            <a th:href="@{'follow/' + ${i.image.username}}"><button class="btn btn-sm btn-primary" th:text="${ 'follow ' + {i.image.username} }"></button></a>
+            <br/><br/>
+            <button class="accordion"><th:block th:text="${i.comments.size()}">comment size error</th:block> comments (click to view or add a comment)</button>
+            <div class="panel">
+                <br/>
+                <th:block th:each="c : ${i.comments}">
+                    <p>
+                        <th:block th:text="${c.username}">username error</th:block> at
+                        <th:block th:text="${c.date}">date error</th:block> said:
+                        <th:block th:text="${c.body}">body error</th:block>
+                    </p>
+                </th:block>
+                <form th:object="${image}" method="POST" action="/comment">
+                    <input type="text" class="form-control" th:field="*{caption}"/>
+                    <input type="hidden" name="id" th:value="${i.image.id}"/>
+                </form>
+                <br/>
+            </div>
+        </div>
+    </th:block>
+    <script>      //-_-//accordion script//-_-//
+    let acc = document.getElementsByClassName('accordion');
+    let i;
+    for (i = 0; i < acc.length; i++)
+        acc[i].onclick = function() {
+            this.classList.toggle('active');
+            let panel = this.nextElementSibling;
+            if (panel.style.display === 'block') {
+                panel.style.display = 'none';
+            } else {
+                panel.style.display = 'block';
+            }
+        };
+    </script>
+</th:block>
+<!-- images -->
+
+<th:block th:fragment="profile">
+
+    <div class="well">
+        this is a well with some stuff in it <p>some mroe sutff</p>
+        this is a this is a well with some stuff in it <p>some mroe sutff</p>
+        well with some stuff in it <p>this is a well with some stuff in it <p>
+        some mroe sutff</p>some mroe sutff</p>
+        this is a well with some stuff in it <p>some mroe sutff</p>
+    </div>
+
+</th:block>
 
 
 </body>

@@ -1,15 +1,11 @@
 package oriongram.model;
 
-import org.hibernate.annotations.ColumnDefault;
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
-/**
- * Created by Orion Wolf_Hubbard on 7/11/2017.
- */
+
 @Entity
 public class Image {
 
@@ -19,7 +15,6 @@ public class Image {
     private String src;
     private String caption;
     private String username;
-    private int likes;
     private String date;
 
     public String getDate() {
@@ -28,14 +23,6 @@ public class Image {
 
     public void setDate(String date) {
         this.date = date;
-    }
-
-    public int getLikes() {
-        return likes;
-    }
-
-    public void setLikes(int likes) {
-        this.likes = likes;
     }
 
     public String getUsername() {
