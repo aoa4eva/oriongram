@@ -70,11 +70,15 @@ public class HomeController {
     @RequestMapping("/all")
     public String all(Model model,Authentication authentication) {
         newImg(model);
-        String username = getUser(authentication).getUsername();
+        User user = getUser(authentication);
+        String username = user.getUsername();
         ArrayList<FullImage> fullImages = new ArrayList<>();
         Iterable<Image> images = imageRepository.findAll();
-        for (Image i : images)
-            fullImages.add(new FullImage(i,commentRepository.findByImageId(i.getId()), thumbsUpRepository.findAllByImageId(i.getId()),followRepository));
+        for (Image i : images) {
+            FullImage full = new FullImage(i, commentRepository.findByImageId(i.getId()), thumbsUpRepository.findAllByImageId(i.getId()), followRepository);
+            full.addButtons(user.getUsername());
+            fullImages.add(full);
+        }
 
         fullImages = sort(fullImages);
 
@@ -93,8 +97,12 @@ public class HomeController {
         ArrayList<Follow> following = followRepository.findAllByFollower(user.getUsername());
 
         for (Follow f : following)
-            for (Image i : imageRepository.findAllByUsername(f.getFollowed()))
-                fullImages.add(new FullImage(i,commentRepository.findByImageId(i.getId()), thumbsUpRepository.findAllByImageId(i.getId()), followRepository));
+            for (Image i : imageRepository.findAllByUsername(f.getFollowed())) {
+                FullImage full = new FullImage(i, commentRepository.findByImageId(i.getId()), thumbsUpRepository.findAllByImageId(i.getId()), followRepository);
+                full.addButtons(user.getUsername());
+                fullImages.add(full);
+            }
+
 
         fullImages = sort(fullImages);
 
@@ -148,7 +156,6 @@ public class HomeController {
         return "redirect:/index";
     }
 
-
     @RequestMapping("/unfollow/{username}")
     public String unFollow(@PathVariable("username") String username, Authentication authentication) {
         User user = getUser(authentication);
@@ -159,7 +166,6 @@ public class HomeController {
 
         return "redirect:/index";
     }
-
 
     @RequestMapping("/email/{id}")
     public String sendEmail(@PathVariable("id") int id,Authentication authentication) {
