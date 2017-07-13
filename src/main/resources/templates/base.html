@@ -120,7 +120,7 @@
 
     <th:block th:each="i : ${images}">
         <div class="well">
-            <span th:attr="id=#{i.images.id}" class="center"><th:block th:utext="${i.image.src}"></th:block></span>
+            <span th:attr="id=#{i.image.id}" class="center"><th:block th:utext="${i.image.src}"></th:block></span>
             <h3 th:text="${i.image.caption}"></h3>
             <p>by: <th:block th:text="${i.image.username}">username error</th:block> on <th:block th:text="${i.image.date}">date error</th:block></p>
             <a th:href="@{'thumbsUp/' + ${i.image.id}}"><button class="btn btn-sm btn-success" th:text="${ 'thumbsUp (' + {i.thumbsUps.length} + ')'}"></button></a>
@@ -146,7 +146,7 @@
 
         <script th:inline="javascript">
             /*<![CDATA[*/
-            ids.push([[${i.images.id}]]);
+            ids.push([[${i.image.id}]]);
             /*]]>*/
         </script>
     </th:block>
