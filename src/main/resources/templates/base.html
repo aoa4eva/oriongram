@@ -178,6 +178,8 @@
                 if(ID('caption_input').value.length > 0) {
                     ID('upload_caption').value = ID('caption_input').value;
                     $('#upload_form').submit();
+                } else {
+                    ID('caption_input').value = 'please enter a caption!!';
                 }
             })
         });
