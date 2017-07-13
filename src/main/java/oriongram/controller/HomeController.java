@@ -1,6 +1,10 @@
 package oriongram.controller;
 
 import com.cloudinary.utils.ObjectUtils;
+import com.google.common.collect.Lists;
+import it.ozimov.springboot.mail.model.Email;
+import it.ozimov.springboot.mail.model.defaultimpl.DefaultEmail;
+import it.ozimov.springboot.mail.service.EmailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -15,6 +19,7 @@ import oriongram.repos.*;
 import oriongram.services.UserService;
 import oriongram.services.UserValidator;
 
+import javax.mail.internet.InternetAddress;
 import javax.validation.Valid;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -24,7 +29,7 @@ import java.util.Map;
 @Controller
 public class HomeController {
 
-
+    private EmailService emailService;
     private UserValidator userValidator;
     private ImageRepository imageRepository;
     private UserService userService;
@@ -35,7 +40,8 @@ public class HomeController {
     private ThumbsUpRepository thumbsUpRepository;
 
     @Autowired
-    public HomeController (UserValidator userValidator, ImageRepository imageRepository, CommentRepository commentRepository, ThumbsUpRepository thumbsUpRepository
+    public HomeController (UserValidator userValidator, ImageRepository imageRepository, CommentRepository commentRepository
+            , ThumbsUpRepository thumbsUpRepository, EmailService emailService
             , FollowRepository followRepository, UserService userService, CloudinaryConfig cloudc, UserRepository userRepository) {
         this.userValidator = userValidator;
         this.imageRepository = imageRepository;
@@ -45,6 +51,7 @@ public class HomeController {
         this.commentRepository = commentRepository;
         this.followRepository = followRepository;
         this.thumbsUpRepository = thumbsUpRepository;
+        this.emailService = emailService;
     }
 
 
@@ -132,6 +139,27 @@ public class HomeController {
 
         return "redirect:/index";
     }
+
+
+    @RequestMapping("/email/{id}")
+    public void sendEmail(@PathVariable("id") int id,Authentication authentication) {
+        User user = getUser(authentication);
+        String src = imageRepository.findOne(id).getSrc();
+        src = src.substring(10, src.length() - 17);
+        try {
+            final Email email = DefaultEmail.builder()
+                    .from(new InternetAddress("OrionGram@email.bot", "Orion Gram email bot"))
+                    .to(Lists.newArrayList(new InternetAddress(user.getEmail(), user.getUsername())))
+                    .subject("your picture link")
+                    .body(String.format("Hello %s! Your image can be found at: %s please come back and use our services again!",user.getUsername(), src))
+                    .encoding("UTF-8").build();
+            emailService.send(email);
+        } catch(Exception e) {
+            //do nothing
+        }
+
+    }
+
 
     @RequestMapping("/upload")
     public String upload(@RequestParam("file") MultipartFile file, Image image, Model model){
