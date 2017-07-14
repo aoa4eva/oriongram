@@ -196,8 +196,8 @@
 <th:block th:fragment="images">
     <div class="row equal">
         <th:block th:each="i : ${images}">
-            <div class="col-sm-4">
-                <div class="well" style="height: 100%; margin-top: 15px;">
+            <div class="col-sm-3">
+                <div class="well" style="height: 95%;">
                     <div class="thumbnail">
                         <th:block th:utext="${i.image.src}">image error</th:block>
                     </div>
