@@ -70,8 +70,8 @@
                 <ul class="nav navbar-nav">
 
                     <th:block sec:authorize="isAnonymous()">
-                        <li><a href="/login">Login</a></li>
-                        <li><a href="/register">Register</a></li>
+                        <li id="login"><a href="/login">Login</a></li>
+                        <li id="register"><a href="/register">Register</a></li>
                     </th:block>
 
                     <th:block sec:authorize="isAuthenticated()">
@@ -83,11 +83,13 @@
                         <li id="file_input"><a href="#"><input class="btn btn-warning" value="select an image" type="button"/></a></li>
                         <li id="file_input_button" style="display: none;"><a href="#"><input class="btn btn-success" type="button" value="Upload"/></a></li>
                     </th:block>
+
                     <script th:inline="javascript">
                         /*<![CDATA[*/
                         ID([[${action}]]).className += 'active';
                         /*]]>*/
                     </script>
+
                 </ul>
             </div><!--/.nav-collapse -->
         </div>

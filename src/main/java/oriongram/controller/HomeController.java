@@ -64,6 +64,7 @@ public class HomeController {
     @RequestMapping("/login")
     public String login(Model model) {
         newImg(model);
+        model.addAttribute("action", "login");
         return "login";
     }
 
@@ -259,6 +260,7 @@ public class HomeController {
     @RequestMapping(value="/register", method = RequestMethod.GET)
     public String showRegistrationPage(Model model){
         model.addAttribute("user", new User());
+        model.addAttribute("action", "register");
         return "registration";
     }
 
@@ -267,12 +269,14 @@ public class HomeController {
         model.addAttribute("user", user);
         userValidator.validate(user, result);
         if (result.hasErrors()) {
+            model.addAttribute("action", "register");
             return "registration";
         } else {
             //todo add default image here: user.setProfileImage('default')
             userService.saveUser(user);
             model.addAttribute("message", "User Account Successfully Created");
         }
+        model.addAttribute("action", "login");
         return "login";
     }
 
