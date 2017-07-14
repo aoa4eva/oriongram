@@ -284,7 +284,6 @@ public class HomeController {
                 else if (fullImages.get(i).getComments().size() < fullImages.get(j).getComments().size() &&
                         fullImages.get(i).getThumbsUps().length == fullImages.get(j).getThumbsUps().length)
                     Collections.swap(fullImages, i, j);
-
         /*
         ArrayList<FullImage> trimmedList = new ArrayList<>();
         int size = fullImages.size();
@@ -295,7 +294,6 @@ public class HomeController {
             trimmedList.add(fullImages.get(i));
         return trimmedList
         */
-
         return fullImages;
     }
     private User getUser(Authentication authentication) {
