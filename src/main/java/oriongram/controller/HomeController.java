@@ -137,11 +137,11 @@ public class HomeController {
     @RequestMapping("/delete/{id}")
     public String delete(@PathVariable("id") int id, Authentication authentication) {
         User user = getUser(authentication);
-        for (ThumbsUp up : thumbsUpRepository.findAllByImageId(id))
-            thumbsUpRepository.delete(up);
-        for (Comment up : commentRepository.findByImageId(id))
-            commentRepository.delete(up);
-        imageRepository.delete(imageRepository.findOne(id));
+        if (user.getUsername().equals(imageRepository.findOne(id).getUsername())) {
+            thumbsUpRepository.delete(thumbsUpRepository.findAllByImageId(id));
+            commentRepository.delete(commentRepository.findByImageId(id));
+            imageRepository.delete(imageRepository.findOne(id));
+        }
         return "redirect:/index";
     }
 
