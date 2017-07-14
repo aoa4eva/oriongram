@@ -15,7 +15,7 @@
         <h3 th:text="${one.image.caption}"></h3>
         <p>by: <th:block th:text="${one.image.username}">username error</th:block> on <th:block th:text="${one.image.date}">date error</th:block></p>
         <th:block th:utext="${one.buttons}">buttons error</th:block>
-        <a th:href="@{'email/' + ${one.image.id} + '/' + ${action}}"><button class="btn btn-sm btn-info">email link</button></a>
+        <a th:href="@{'/email/' + ${one.image.id} + '/' + ${action}}"><button class="btn btn-sm btn-info">email link</button></a>
         <br/><br/>
         <button class="accordion"> Comments (<th:block th:text="${one.comments.size()}">comment size error</th:block>)</button>
         <div class="panel">

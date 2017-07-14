@@ -34,11 +34,11 @@ public class FullImage {
             if (follow.getFollowed().equals(image.getUsername()))
                 check = true;
         if (!check)
-            buttons += String.format("<a href=\"follow/%s/%s\"><button class=\"btn btn-sm btn-success\" >follow</button></a> ", image.getUsername(), from);
+            buttons += String.format("<a href=\"/follow/%s/%s\"><button class=\"btn btn-sm btn-success\" >follow</button></a> ", image.getUsername(), from);
         else
-            buttons += String.format("<a href=\"unfollow/%s/%s\"><button class=\"btn btn-sm btn-danger\" >unfollow</button></a> ", image.getUsername(), from);
+            buttons += String.format("<a href=\"/unfollow/%s/%s\"><button class=\"btn btn-sm btn-danger\" >unfollow</button></a> ", image.getUsername(), from);
         if (username.equals(image.getUsername()))
-            buttons += String.format(" <a href=\"delete/%s/%s\"><button class=\"btn btn-sm btn-danger\" >delete post</button></a> ", image.getId(), from);
+            buttons += String.format(" <a href=\"/delete/%s/%s\"><button class=\"btn btn-sm btn-danger\" >delete post</button></a> ", image.getId(), from);
     }
     public String getButtons() {return buttons;}
     public void setButtons(String buttons) {this.buttons = buttons;}
