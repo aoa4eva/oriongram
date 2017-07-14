@@ -15,8 +15,10 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
         <style>
-            .row.match-my-cols {
-                overflow: hidden;
+            .equal {
+                display: flex;
+                display: -webkit-flex;
+                flex-wrap: wrap;
             }
 
             .row.match-my-cols [class*="col-"]{
@@ -192,7 +194,7 @@
 
 <!-- images -->
 <th:block th:fragment="images">
-    <div class="row match-my-cols">
+    <div class="row equal">
         <th:block th:each="i : ${images}">
             <div class="col-sm-4">
                 <div class="well"> <!--style="height: 500px; overflow-y: scroll"-->
