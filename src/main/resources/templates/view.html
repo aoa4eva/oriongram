@@ -29,7 +29,7 @@
             </th:block>
             <form th:object="${image}" method="POST" action="/comment">
                 <input type="text" class="form-control" th:field="*{caption}"/>
-                <input type="hidden" name="id" th:value="${image.image.id}"/>
+                <input type="hidden" name="id" th:value="${one.image.id}"/>
                 <input type="hidden" name="src" th:value="${action}"/>
             </form>
             <br/>
