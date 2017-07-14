@@ -83,7 +83,8 @@ public class HomeController {
         fullImages = sort(fullImages);
 
         model.addAttribute("images", fullImages);
-        model.addAttribute("username", username);
+        model.addAttribute("action", "global");
+        //model.addAttribute("username", username);
 
         return "images";
     }
@@ -107,6 +108,7 @@ public class HomeController {
         fullImages = sort(fullImages);
 
         model.addAttribute("images", fullImages);
+        model.addAttribute("action", "follow");
         return "images";
     }
 
@@ -250,6 +252,7 @@ public class HomeController {
 
         newImg(model);
         model.addAttribute("images", fullImages);
+        model.addAttribute("action", "index");
         return "images";
     }
 

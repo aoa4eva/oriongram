@@ -15,108 +15,30 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
         <style>
-            .equal {
-                display: flex;
-                display: -webkit-flex;
-                flex-wrap: wrap;
-            }
-
-            .row.match-my-cols [class*="col-"]{
-                margin-bottom: -99999px;
-                padding-bottom: 99999px;
-            }
-            .well {
-                box-shadow: 4px 4px 10px #888888;
-            }
-            input[type=range] {
-                -webkit-appearance: none;
-                margin: 18px 0;
-                width: 100%;
-            }
-            input[type=range]:focus {
-                outline: none;
-            }
-            input[type=range]::-webkit-slider-runnable-track {
-                width: 100%;
-                height: 8.4px;
-                cursor: pointer;
-                animate: 0.2s;
-                box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
-                background: #3071a9;
-                border-radius: 1.3px;
-                border: 0.2px solid #010101;
-            }
-            input[type=range]::-webkit-slider-thumb {
-                box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
-                border: 1px solid #000000;
-                height: 36px;
-                width: 16px;
-                border-radius: 3px;
-                background: #ffffff;
-                cursor: pointer;
-                -webkit-appearance: none;
-                margin-top: -14px;
-            }
-            input[type=range]:focus::-webkit-slider-runnable-track {
-                background: #367ebd;
-            }
-            input[type=range]::-moz-range-track {
-                width: 100%;
-                height: 8.4px;
-                cursor: pointer;
-                animate: 0.2s;
-                box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
-                background: #3071a9;
-                border-radius: 1.3px;
-                border: 0.2px solid #010101;
-            }
-            input[type=range]::-moz-range-thumb {
-                box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
-                border: 1px solid #000000;
-                height: 36px;
-                width: 16px;
-                border-radius: 3px;
-                background: #ffffff;
-                cursor: pointer;
-            }
-            input[type=range]::-ms-track {
-                width: 100%;
-                height: 8.4px;
-                cursor: pointer;
-                animate: 0.2s;
-                background: transparent;
-                border-color: transparent;
-                border-width: 16px 0;
-                color: transparent;
-            }
-            input[type=range]::-ms-fill-lower {
-                background: #2a6495;
-                border: 0.2px solid #010101;
-                border-radius: 2.6px;
-                box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
-            }
-            input[type=range]::-ms-fill-upper {
-                background: #3071a9;
-                border: 0.2px solid #010101;
-                border-radius: 2.6px;
-                box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
-            }
-            input[type=range]::-ms-thumb {
-                box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
-                border: 1px solid #000000;
-                height: 36px;
-                width: 16px;
-                border-radius: 3px;
-                background: #ffffff;
-                cursor: pointer;
-            }
-            input[type=range]:focus::-ms-fill-lower {
-                background: #3071a9;
-            }
-            input[type=range]:focus::-ms-fill-upper {
-                background: #367ebd;
-            }
-
+            .equal {  display: flex;  display: -webkit-flex;  flex-wrap: wrap;  }
+            .row.match-my-cols [class*="col-"]{  margin-bottom: -99999px;  padding-bottom: 99999px;  }
+            .well {  box-shadow: 4px 4px 10px #888888;  }
+            input[type=range] {  -webkit-appearance: none;  margin: 18px 0;  width: 100%;  }
+            input[type=range]:focus {  outline: none;  }
+            input[type=range]::-webkit-slider-runnable-track {  width: 100%;  height: 8.4px;  cursor: pointer;  animate: 0.2s;
+                box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;  background: #3071a9;  border-radius: 1.3px;  border: 0.2px solid #010101;  }
+            input[type=range]::-webkit-slider-thumb {  box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;  border: 1px solid #000000;
+                height: 36px;  width: 16px;  border-radius: 3px;  background: #ffffff;  cursor: pointer;  -webkit-appearance: none;  margin-top: -14px;  }
+            input[type=range]:focus::-webkit-slider-runnable-track {  background: #367ebd;  }
+            input[type=range]::-moz-range-track {  width: 100%;  height: 8.4px;  cursor: pointer;  animate: 0.2s;
+                box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;  background: #3071a9;  border-radius: 1.3px;  border: 0.2px solid #010101;  }
+            input[type=range]::-moz-range-thumb {  box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
+                border: 1px solid #000000;  height: 36px;  width: 16px;  border-radius: 3px;  background: #ffffff;  cursor: pointer;  }
+            input[type=range]::-ms-track {  width: 100%;  height: 8.4px;  cursor: pointer;  animate: 0.2s;
+                background: transparent;  border-color: transparent;  border-width: 16px 0;  color: transparent;  }
+            input[type=range]::-ms-fill-lower {  background: #2a6495;  border: 0.2px solid #010101;
+                border-radius: 2.6px;  box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;  }
+            input[type=range]::-ms-fill-upper {  background: #3071a9;  border: 0.2px solid #010101;
+                border-radius: 2.6px;  box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;  }
+            input[type=range]::-ms-thumb {  box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;  border: 1px solid #000000;
+                height: 36px;  width: 16px;  border-radius: 3px;  background: #ffffff;  cursor: pointer;  }
+            input[type=range]:focus::-ms-fill-lower {  background: #3071a9;  }
+            input[type=range]:focus::-ms-fill-upper {  background: #367ebd;  }
             button.accordion {  background-color: #eee; color: #444; cursor: pointer; padding: 18px;
                 width: 100%; border: none; text-align: left; outline: none; font-size: 15px; transition: 0.4s; }
             button.accordion.active, button.accordion:hover { background-color: #ddd; }
@@ -152,16 +74,20 @@
                         <li><a href="/register">Register</a></li>
                     </th:block>
 
-                   <th:block sec:authorize="isAuthenticated()">
-                       <li><a href="/index">Your Feed</a></li>
-                       <li><a href="/all">Global Feed</a></li>
-                       <li><a href="/following">Follow feed</a></li>
-                       <li><a href="/logout">Logout</a></li>
-                       <li ><a href="#"><input id="caption_input" style="display: none;" class="form-control" type="text" placeholder="Picture Caption"/></a></li>
-                       <li id="file_input"><a href="#"><input class="btn btn-warning" value="select an image" type="button"/></a></li>
-                       <li id="file_input_button" style="display: none;"><a href="#"><input class="btn btn-success" type="button" value="Upload"/></a></li>
-                   </th:block>
-
+                    <th:block sec:authorize="isAuthenticated()">
+                        <li id="index"><a href="/index">Your Feed</a></li>
+                        <li id="global"><a href="/all">Global Feed</a></li>
+                        <li id="follow"><a href="/following">Follow feed</a></li>
+                        <li><a href="/logout">Logout</a></li>
+                        <li ><a href="#"><input id="caption_input" style="display: none;" class="form-control" type="text" placeholder="Picture Caption"/></a></li>
+                        <li id="file_input"><a href="#"><input class="btn btn-warning" value="select an image" type="button"/></a></li>
+                        <li id="file_input_button" style="display: none;"><a href="#"><input class="btn btn-success" type="button" value="Upload"/></a></li>
+                    </th:block>
+                    <script th:inline="javascript">
+                        /*<![CDATA[*/
+                        ID([[${action}]]).className += 'active';
+                        /*]]>*/
+                    </script>
                 </ul>
             </div><!--/.nav-collapse -->
         </div>
