@@ -35,9 +35,9 @@ public class FullImage {
             if (follow.getFollowed().equals(image.getUsername()))
                 check = true;
         if (!check)
-            buttons += String.format("<a href=\"follow/%s\"><button class=\"btn btn-sm btn-success\" >follow %s</button></a> ", image.getUsername(), image.getUsername());
+            buttons += String.format("<a href=\"follow/%s\"><button class=\"btn btn-sm btn-success\" >follow</button></a> ", image.getUsername());
         else
-            buttons += String.format("<a href=\"unfollow/%s\"><button class=\"btn btn-sm btn-danger\" >unfollow %s</button></a> ", image.getUsername(), image.getUsername());
+            buttons += String.format("<a href=\"unfollow/%s\"><button class=\"btn btn-sm btn-danger\" >unfollow</button></a> ", image.getUsername());
         if (username.equals(image.getUsername()))
             buttons += String.format(" <a href=\"delete/%s\"><button class=\"btn btn-sm btn-danger\" >delete post</button></a> ", image.getId());
     }
