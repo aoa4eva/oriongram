@@ -131,7 +131,7 @@ public class HomeController {
         image.addButtons(user.getUsername(),"all");
         model.addAttribute("one", image);
         newImg(model);
-        model.addAttribute("action", "index");
+        model.addAttribute("action", "all");
         return "view";
     }
 
