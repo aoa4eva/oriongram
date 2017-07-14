@@ -18,9 +18,6 @@
             .well {
                 box-shadow: 4px 4px 10px #888888;
             }
-            image {
-                border-radius: 10px;
-            }
             input[type=range] {
                 -webkit-appearance: none;
                 margin: 18px 0;
@@ -190,8 +187,10 @@
     <div class="row">
         <th:block th:each="i : ${images}">
             <div class="col-sm-4">
-                <div class="well" style="height: 500px; overflow-y: scroll">
-                    <th:block th:utext="${i.image.src}">image error</th:block>
+                <div class="well"> <!--style="height: 500px; overflow-y: scroll"-->
+                    <div class="thumbnail">
+                        <th:block th:utext="${i.image.src}">image error</th:block>
+                    </div>
                     <h3 th:text="${i.image.caption}"></h3>
                     <p>by: <th:block th:text="${i.image.username}">username error</th:block> on <th:block th:text="${i.image.date}">date error</th:block></p>
                     <th:block th:utext="${i.buttons}">buttons error</th:block>
