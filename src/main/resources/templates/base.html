@@ -15,6 +15,9 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
         <style>
+            .thumbnail {
+                box-shadow: 3px 3px 10px #000000, 0 0 1px #0d0d0d;
+            }
             .equal {  display: flex;  display: -webkit-flex;  flex-wrap: wrap;  }
             .row.match-my-cols [class*="col-"]{  margin-bottom: -99999px;  padding-bottom: 99999px;  }
             .well {  box-shadow: 4px 4px 10px #888888;  }
@@ -84,12 +87,13 @@
                         <li id="file_input_button" style="display: none;"><a href="#"><input class="btn btn-success" type="button" value="Upload"/></a></li>
                     </th:block>
 
+                    <!-- activate nav -->
                     <script th:inline="javascript">
                         /*<![CDATA[*/
                         ID([[${action}]]).className += 'active';
                         /*]]>*/
                     </script>
-
+                    <!-- activate nav -->
                 </ul>
             </div><!--/.nav-collapse -->
         </div>
