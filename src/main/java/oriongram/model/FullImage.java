@@ -18,7 +18,6 @@ public class FullImage {
         for (int i = 0; i < thumbsUps.size(); i++)
             this.thumbsUps[i] = thumbsUps.get(i).getUsername();
     }
-
     public void addButtons(String username) {
         buttons = "";
         boolean check = false;
@@ -41,7 +40,6 @@ public class FullImage {
         if (username.equals(image.getUsername()))
             buttons += String.format(" <a href=\"delete/%s\"><button class=\"btn btn-sm btn-danger\" >delete post</button></a> ", image.getId());
     }
-
     public String getButtons() {return buttons;}
     public void setButtons(String buttons) {this.buttons = buttons;}
     public Image getImage() {return image;}

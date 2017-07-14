@@ -72,7 +72,6 @@ public class HomeController {
     public String all(Model model,Authentication authentication) {
         newImg(model);
         User user = getUser(authentication);
-        String username = user.getUsername();
         ArrayList<FullImage> fullImages = new ArrayList<>();
         Iterable<Image> images = imageRepository.findAll();
         for (Image i : images) {
@@ -80,12 +79,9 @@ public class HomeController {
             full.addButtons(user.getUsername());
             fullImages.add(full);
         }
-
         fullImages = sort(fullImages);
-
         model.addAttribute("images", fullImages);
-        model.addAttribute("action", "global");
-        //model.addAttribute("username", username);
+        model.addAttribute("action", "all");
 
         return "images";
     }
@@ -109,7 +105,7 @@ public class HomeController {
         fullImages = sort(fullImages);
 
         model.addAttribute("images", fullImages);
-        model.addAttribute("action", "follow");
+        model.addAttribute("action", "following");
         return "images";
     }
 
@@ -124,7 +120,7 @@ public class HomeController {
         comment.setImageId(imageId);
         comment.setUsername(user.getUsername());
         commentRepository.save(comment);
-        return "redirect:/index";
+        return image.getSrc();
     }
 
     @RequestMapping("/thumbsUp/{id}")

@@ -58,8 +58,8 @@
 
                     <th:block sec:authorize="isAuthenticated()">
                         <li id="index"><a href="/index">Your Feed</a></li>
-                        <li id="global"><a href="/all">Global Feed</a></li>
-                        <li id="follow"><a href="/following">Follow feed</a></li>
+                        <li id="all"><a href="/all">Global Feed</a></li>
+                        <li id="following"><a href="/following">Follow feed</a></li>
                         <li><a href="/logout">Logout</a></li>
                         <li ><a href="#"><input id="caption_input" style="display: none;" class="form-control" type="text" placeholder="Picture Caption"/></a></li>
                         <li id="file_input"><a href="#"><input class="btn btn-warning" value="select an image" type="button"/></a></li>
@@ -130,6 +130,7 @@
                         <form th:object="${image}" method="POST" action="/comment">
                             <input type="text" class="form-control" th:field="*{caption}"/>
                             <input type="hidden" name="id" th:value="${i.image.id}"/>
+                            <input type="hidden" name="src" th:value="${action}"/>
                         </form>
                         <br/>
                     </div>
