@@ -120,7 +120,7 @@ public class HomeController {
         comment.setImageId(imageId);
         comment.setUsername(user.getUsername());
         commentRepository.save(comment);
-        return image.getSrc();
+        return "redirect:/" + image.getSrc();
     }
 
     @RequestMapping("/thumbsUp/{id}")
