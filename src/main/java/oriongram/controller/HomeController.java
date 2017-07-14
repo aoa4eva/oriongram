@@ -128,7 +128,7 @@ public class HomeController {
         User user = getUser(authentication);
         FullImage image = new FullImage(imageRepository.findOne(id), commentRepository.findByImageId(id),
                 thumbsUpRepository.findAllByImageId(id), followRepository);
-        image.addButtons(user.getUsername(),"index");
+        image.addButtons(user.getUsername(),"all");
         model.addAttribute("one", image);
         newImg(model);
         model.addAttribute("action", "index");
