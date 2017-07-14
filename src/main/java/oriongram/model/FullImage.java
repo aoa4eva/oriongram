@@ -14,7 +14,6 @@ public class FullImage {
         this.followRepository = followRepository;
         this.image = image;
         this.comments = comments;
-        this.from = from;
         this.thumbsUps = new String[thumbsUps.size()];
         for (int i = 0; i < thumbsUps.size(); i++)
             this.thumbsUps[i] = thumbsUps.get(i).getUsername();
