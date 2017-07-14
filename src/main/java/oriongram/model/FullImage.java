@@ -25,9 +25,9 @@ public class FullImage {
             if (user.equals(username))
                 check = true;
         if (!check)
-            buttons += String.format("<a href=\"thumbsUp/%s/%s\"><button class=\"btn btn-sm btn-success\" >thumbsUp (%s)</button></a> ", image.getId(),from, thumbsUps.length);
+            buttons += String.format("<a href=\"/thumbsUp/%s/%s\"><button class=\"btn btn-sm btn-success\" >thumbsUp (%s)</button></a> ", image.getId(),from, thumbsUps.length);
         else
-            buttons += String.format("<a href=\"thumbsDown/%s/%s\"><button class=\"btn btn-sm btn-danger\" >nah! (%s)</button></a> ", image.getId(),from, thumbsUps.length);
+            buttons += String.format("<a href=\"/thumbsDown/%s/%s\"><button class=\"btn btn-sm btn-danger\" >nah! (%s)</button></a> ", image.getId(),from, thumbsUps.length);
 
         check = false;
         for (Follow follow : followRepository.findAllByFollower(username))
