@@ -197,7 +197,7 @@
     <div class="row equal">
         <th:block th:each="i : ${images}">
             <div class="col-sm-3">
-                <div class="well" style="height: 95%;">
+                <div class="well" style="height: 96%;">
                     <div class="thumbnail">
                         <th:block th:utext="${i.image.src}">image error</th:block>
                     </div>
@@ -206,7 +206,7 @@
                     <th:block th:utext="${i.buttons}">buttons error</th:block>
                     <a th:href="@{'email/' + ${i.image.id}}"><button class="btn btn-sm btn-info">email link</button></a>
                     <br/><br/>
-                    <button class="accordion"><th:block th:text="${i.comments.size()}">comment size error</th:block> comments (click to view or add a comment)</button>
+                    <button class="accordion"><th:block th:text="${i.comments.size()}">comment size error</th:block></button>
                     <div class="panel">
                         <br/>
                         <th:block th:each="c : ${i.comments}">
