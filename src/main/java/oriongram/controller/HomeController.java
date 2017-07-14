@@ -285,6 +285,7 @@ public class HomeController {
                         fullImages.get(i).getThumbsUps().length == fullImages.get(j).getThumbsUps().length)
                     Collections.swap(fullImages, i, j);
 
+        /*
         ArrayList<FullImage> trimmedList = new ArrayList<>();
         int size = fullImages.size();
         if (size > 25)
@@ -292,8 +293,10 @@ public class HomeController {
 
         for (int i = 0; i < size; i++)
             trimmedList.add(fullImages.get(i));
+        return trimmedList
+        */
 
-        return trimmedList;
+        return fullImages;
     }
     private User getUser(Authentication authentication) {
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();
