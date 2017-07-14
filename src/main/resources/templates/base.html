@@ -110,7 +110,7 @@
             <div class="col-md-4">
                 <div class="well" style="height: 96%;">
                     <div class="thumbnail">
-                        <th:block th:utext="${i.image.src}">image error</th:block>
+                        <a th:href="@{'view/' + ${i.image.id}}"><th:block th:utext="${i.image.src}">image error</th:block></a>
                     </div>
                     <h3 th:text="${i.image.caption}"></h3>
                     <p>by: <th:block th:text="${i.image.username}">username error</th:block> on <th:block th:text="${i.image.date}">date error</th:block></p>

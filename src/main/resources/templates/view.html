@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="www.thymeleaf.org " xmlns:sec="www.thymeleaf.org/extras/spring-security">
+<head>
+    <th:block th:replace="base :: head"></th:block>
+</head>
+<body>
+<div class="container">
+    <th:block th:replace="base :: nav"></th:block>
+
+
+    <div class="well">
+        <div class="thumbnail">
+            <th:block th:utext="${image.image.src}">image error</th:block>
+        </div>
+        <h3 th:text="${image.image.caption}"></h3>
+        <p>by: <th:block th:text="${image.image.username}">username error</th:block> on <th:block th:text="${image.image.date}">date error</th:block></p>
+        <th:block th:utext="${image.buttons}">buttons error</th:block>
+        <a th:href="@{'email/' + ${image.image.id} + '/' + ${action}}"><button class="btn btn-sm btn-info">email link</button></a>
+        <br/><br/>
+        <button class="accordion"> Comments (<th:block th:text="${image.comments.size()}">comment size error</th:block>)</button>
+        <div class="panel">
+            <br/>
+            <th:block th:each="c : ${image.comments}">
+                <p>
+                    <th:block th:text="${c.username}">username error</th:block> at
+                    <th:block th:text="${c.date}">date error</th:block> said:
+                    <th:block th:text="${c.body}">body error</th:block>
+                </p>
+            </th:block>
+            <form th:object="${image}" method="POST" action="/comment">
+                <input type="text" class="form-control" th:field="*{caption}"/>
+                <input type="hidden" name="id" th:value="${image.image.id}"/>
+                <input type="hidden" name="src" th:value="${action}"/>
+            </form>
+            <br/>
+        </div>
+        <br/><br/>
+    </div>
+
+
+</div>
+</body>
+</html>

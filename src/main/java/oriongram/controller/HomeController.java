@@ -123,6 +123,19 @@ public class HomeController {
         return "redirect:/" + image.getSrc();
     }
 
+    @RequestMapping("/view/{id}")
+    public String view(@PathVariable("id") int id, Authentication authentication, Model model) {
+        User user = getUser(authentication);
+        FullImage image = new FullImage(imageRepository.findOne(id), commentRepository.findByImageId(id),
+                thumbsUpRepository.findAllByImageId(id), followRepository);
+        image.addButtons(user.getUsername(),"index");
+        model.addAttribute("image", image);
+        newImg(model);
+        model.addAttribute("action", "index");
+        return "view";
+    }
+
+
     @RequestMapping("/thumbsUp/{id}/{from}")
     public String thumbsUp(@PathVariable("id") int id, @PathVariable("from") String from, Authentication authentication) {
         User user = getUser(authentication);
