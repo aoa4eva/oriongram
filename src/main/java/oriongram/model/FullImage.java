@@ -14,31 +14,32 @@ public class FullImage {
         this.followRepository = followRepository;
         this.image = image;
         this.comments = comments;
+        this.from = from;
         this.thumbsUps = new String[thumbsUps.size()];
         for (int i = 0; i < thumbsUps.size(); i++)
             this.thumbsUps[i] = thumbsUps.get(i).getUsername();
     }
-    public void addButtons(String username) {
+    public void addButtons(String username, String from) {
         buttons = "";
         boolean check = false;
         for (String user : thumbsUps)
             if (user.equals(username))
                 check = true;
         if (!check)
-            buttons += String.format("<a href=\"thumbsUp/%s\"><button class=\"btn btn-sm btn-success\" >thumbsUp (%s)</button></a> ", image.getId(), thumbsUps.length);
+            buttons += String.format("<a href=\"thumbsUp/%s/%s\"><button class=\"btn btn-sm btn-success\" >thumbsUp (%s)</button></a> ", image.getId(),from, thumbsUps.length);
         else
-            buttons += String.format("<a href=\"thumbsDown/%s\"><button class=\"btn btn-sm btn-danger\" >nah! (%s)</button></a> ", image.getId(), thumbsUps.length);
+            buttons += String.format("<a href=\"thumbsDown/%s/%s\"><button class=\"btn btn-sm btn-danger\" >nah! (%s)</button></a> ", image.getId(),from, thumbsUps.length);
 
         check = false;
         for (Follow follow : followRepository.findAllByFollower(username))
             if (follow.getFollowed().equals(image.getUsername()))
                 check = true;
         if (!check)
-            buttons += String.format("<a href=\"follow/%s\"><button class=\"btn btn-sm btn-success\" >follow</button></a> ", image.getUsername());
+            buttons += String.format("<a href=\"follow/%s/%s\"><button class=\"btn btn-sm btn-success\" >follow</button></a> ", image.getUsername(), from);
         else
-            buttons += String.format("<a href=\"unfollow/%s\"><button class=\"btn btn-sm btn-danger\" >unfollow</button></a> ", image.getUsername());
+            buttons += String.format("<a href=\"unfollow/%s/%s\"><button class=\"btn btn-sm btn-danger\" >unfollow</button></a> ", image.getUsername(), from);
         if (username.equals(image.getUsername()))
-            buttons += String.format(" <a href=\"delete/%s\"><button class=\"btn btn-sm btn-danger\" >delete post</button></a> ", image.getId());
+            buttons += String.format(" <a href=\"delete/%s/%s\"><button class=\"btn btn-sm btn-danger\" >delete post</button></a> ", image.getId(), from);
     }
     public String getButtons() {return buttons;}
     public void setButtons(String buttons) {this.buttons = buttons;}
