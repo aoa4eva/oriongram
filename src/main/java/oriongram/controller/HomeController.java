@@ -177,8 +177,8 @@ public class HomeController {
         return "redirect:/" + from;
     }
 
-    @RequestMapping("/email/{id}")
-    public String sendEmail(@PathVariable("id") int id,Authentication authentication) {
+    @RequestMapping("/email/{id}/{from}")
+    public String sendEmail(@PathVariable("id") int id,Authentication authentication, @PathVariable("from") String from) {
         User user = getUser(authentication);
         String src = imageRepository.findOne(id).getSrc();
         src = src.substring(10, src.length() - 17);
@@ -193,7 +193,7 @@ public class HomeController {
         } catch(Exception e) {
             //not my problem
         }
-        return "redirect:/index";
+        return "redirect:/" + from;
     }
 
     @RequestMapping("/upload")
