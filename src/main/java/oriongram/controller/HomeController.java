@@ -284,7 +284,16 @@ public class HomeController {
                 else if (fullImages.get(i).getComments().size() < fullImages.get(j).getComments().size() &&
                         fullImages.get(i).getThumbsUps().length == fullImages.get(j).getThumbsUps().length)
                     Collections.swap(fullImages, i, j);
-        return fullImages;
+
+        ArrayList<FullImage> trimmedList = new ArrayList<>();
+        int size = fullImages.size();
+        if (size > 25)
+            size=25;
+
+        for (int i = 0; i < size; i++)
+            trimmedList.add(fullImages.get(i));
+
+        return trimmedList;
     }
     private User getUser(Authentication authentication) {
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();
