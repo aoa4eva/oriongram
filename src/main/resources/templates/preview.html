@@ -53,6 +53,7 @@
         <button id="yellow" class="btn btn-warning">yellow filter</button>
         <button id="brightness" class="btn btn-default">change brightness</button>
         <button id="saturation" class="btn btn-default">change saturation</button>
+        <button id="cartoonify" class="btn btn-default">cartoonify</button>
         <button id="grayscale" class="btn btn-default">grayscale</button>
         <button id="blur_face" class="btn btn-default">blur faces</button>
         <button id="save" class="btn btn-default">save</button>
@@ -65,7 +66,6 @@
 
     <script>
         ID('edit_image').innerHTML = fullUrl;
-
         $('#purple').click( () => {
             fullUrl = `<img src="${url}e_colorize:${ID('range').value},co_purple/${filename}" width="100%;"/>`;
             ID('edit_image').innerHTML = fullUrl;
@@ -98,6 +98,10 @@
         });
         $('#grayscale').click( () => {
             fullUrl = `<img src="${url}e_grayscale/${filename}" width="100%;"/>`;
+            ID('edit_image').innerHTML = fullUrl;
+        });
+        $('#cartoonify').click( () => {
+            fullUrl = `<img src="${url}e_cartoonify:${ID('range').value}/${filename}" width="100%;"/>`;
             ID('edit_image').innerHTML = fullUrl;
         });
         $('#blur_face').click( () => {

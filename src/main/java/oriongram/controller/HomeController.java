@@ -256,9 +256,7 @@ public class HomeController {
             full.addButtons(user.getUsername(), "index");
             fullImages.add(full);
         }
-
         fullImages = sort(fullImages);
-
         newImg(model);
         model.addAttribute("images", fullImages);
         model.addAttribute("action", "index");
